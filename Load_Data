@@ -1,0 +1,16 @@
+library(data.table)
+## read the data and specify the field separator
+data<-fread("~/Dataset/household_power_consumption.txt",sep=";",
+
+## specify question marks as NA values
+            na.strings=c("?","NA"),colClasses="character"
+## read only the dates that we care about for this project
+            )[,Date:=as.Date(Date,format="%d/%m/%Y")
+              ][Date %in% seq(from=as.Date("2007-02-01"),
+                              to=as.Date("2007-02-02"),by="day")]
+## set the fields to numeric
+numerics<-setdiff(names(data),c("Date","Time"))
+data[,(numerics):=lapply(.SD,as.numeric),.SDcols=numerics]
+
+## create the historgram!
+data[,hist(Global_active_power)]
