@@ -12,5 +12,5 @@ data<-fread("~/Dataset/household_power_consumption.txt",sep=";",
 numerics<-setdiff(names(data),c("Date","Time"))
 data[,(numerics):=lapply(.SD,as.numeric),.SDcols=numerics]
 
-## create the historgram!
+## create a historgram!
 data[,hist(Global_active_power)]
