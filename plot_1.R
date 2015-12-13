@@ -1,6 +1,13 @@
-plot_1 <- function(){
-            hist(data$Global_active_power, main= paste("Global Active Power"), col = "red", xlab = "Global Active Power (kilowatts)")
-            dev.copy(png, file="png1.png", width=480, height=480)
-            dev.off()
-            cat("Plot1.png has been saved in", getwd())}
-plot_1()
+source("load_data.R")
+
+plot_1 <- function(data=NULL) {
+    if(is.null(data))
+        data <- load_data()
+    
+    png("plot1.png", width=480, height=480)
+    
+    hist(data$Global_active_power,main="Global Active Power", xlab="Global Active Power (kilowatts)", ylab="Frequency", col="red")
+    
+    dev.off()
+cat("plot1.png has been saved in", getwd())
+}
